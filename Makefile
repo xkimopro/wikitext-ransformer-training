@@ -14,10 +14,12 @@ install:
 train:
 	$(PY) -m src.cli train --config configs/base.yaml
 
-train-larger:
+train-smaller:
 	$(PY) -m src.cli train --config configs/base.yaml --override \
-		model.n_layer=24 \
-		model.n_embd=1536 
+	  experiment_name="baseline-small" \
+	  model.n_layer=6 \
+	  model.n_head=8 \
+	  model.n_embd=512
 
 train-flash:
 	$(PY) -m src.cli train --config configs/base.yaml --override \
