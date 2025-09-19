@@ -1,0 +1,9 @@
+transformers>=4.42
+datasets>=2.19
+accelerate>=0.33
+tokenizers>=0.15
+pyyaml>=6.0
+tqdm>=4.66
+pandas>=2.2
+matplotlib>=3.8
+seaborn

@@ -1,0 +1,90 @@
+# ==== Experiment identity ====
+experiment_name: "baseline"
+seed: 42
+
+# ==== Paths ====
+paths:
+  output_dir: "results"
+  logs_dir: "results/logs"
+  plots_dir: "results/plots"
+
+# ==== Data ====
+data:
+  dataset_name: "wikitext"
+  dataset_config: "wikitext-103-v1"
+  text_column: "text"
+  seq_len: 512
+  streaming: true
+  shuffle_buffer: 10000
+  create_val_split_if_missing: true
+  val_split_fraction: 0.05
+  estimated_train_examples: 1801350
+
+# ==== Tokenizer ====
+tokenizer:
+  name_or_path: "gpt2"
+
+# ==== Model (single model built ONLY from this YAML) ====
+model:
+  name: "vanilla"
+  vocab_size: 50257
+  n_layer: 12
+  n_head: 12
+  n_embd: 768
+  dropout: 0.1
+  gradient_checkpointing: false
+
+# ==== Optimizer & Scheduler ====
+optim:
+  name: "adamw"
+  lr: 3.0e-4
+  weight_decay: 0.1
+  adam_beta1: 0.9
+  adam_beta2: 0.95
+  adam_eps: 1.0e-8
+  foreach: true
+  fused: false
+
+scheduler:
+  name: "cosine_with_warmup"
+  warmup_steps: 200
+
+# ==== Training ====
+train:
+  batch_size: 8
+  grad_accum: 1
+  max_steps: 4000
+  clip_grad_norm: null
+  eval_every: 500
+  eval_max_steps: 50
+  tps_ema_alpha: 0.10
+
+# ==== Dataloader ====
+loader:
+  num_workers: 1
+  persistent_workers: true
+  prefetch_factor: 2
+  pin_memory: true
+  drop_last: true
+  prefetch:
+    enable: true
+
+# ==== Hardware ====
+hardware:
+  device: "cuda"
+  amp: false                  
+  bf16: false
+  compile: false
+  tf32: true
+  cudnn_benchmark: true
+  ddp: false
+
+  # Optimizations override
+  flash_attention: false
+  allow_amp_in_train: false
+
+# ==== Logging ====
+logging:
+  csv_path: "results/logs/metrics.csv"
+  log_every: 500
+  sync_cuda_timer: true
