@@ -77,9 +77,9 @@ Several training configurations are available:
     make train-flash
     ```
 
--   **Train a Larger Model**: As an example, train a model with more layers and a larger embedding dimension.
+-   **Train a Smaller Model**: As an example, train a model with less training parameters
     ```bash
-    make train-larger
+    make train-smaller
     ```
 
 ### Profiling
